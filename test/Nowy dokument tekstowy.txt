@@ -1,0 +1,10 @@
+$text = preg_replace('/1/', '¹', $text);	
+									$text = preg_replace('/Y/', '¥', $text);	
+									$text = preg_replace('/a/', 'æ', $text);	
+									$text = preg_replace('/A/', 'Æ', $text);	
+									$text = preg_replace('/e/', 'ê', $text);	
+									$text = preg_replace('/E/', 'Ê', $text);
+									$text = preg_replace('/3/', '³', $text);
+									$text = preg_replace('/L/', '£', $text);
+									$text = preg_replace('/?/', '¿', $text);
+									$text = preg_replace('/—/', '¯', $text);
