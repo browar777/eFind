@@ -84,6 +84,7 @@ $email_list = array();
 
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="bootstrap/css/mycss.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -95,7 +96,7 @@ $email_list = array();
   <body>
    
  <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
+  <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -109,7 +110,7 @@ $email_list = array();
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav ">
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Link</a></li>
         
@@ -119,6 +120,37 @@ $email_list = array();
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+	
+			<div class="jumbotron">
+			<div class="container">
+			  <h1>eFind</h1>
+			  <p>Strona pozwala w łatwy i szybki sposób znaleźć wszystkie adresy email znajdujące się w wskazanym przez ciebie pliku/stronie internetowej.</p>
+			  
+			  </div>	<!-- /.container -->
+			</div><!-- /.jumbotron -->
+			
+<div class="container">
+			
+	<div class="row">
+				  
+					<a href="#" class="thumbnail col-xs-6 col-md-3">
+					  <img src="img/PDF-icon.png" alt="...">
+					</a>
+					<a href="#" class="thumbnail col-xs-6 col-md-3">
+					  <img src="img/docx.jpg" alt="...">
+					</a>
+					<a href="#" class="thumbnail col-xs-6 col-md-3">
+					  <img src="img/txt-file-1.png" alt="...">
+					</a>
+					<a href="#" class="thumbnail col-xs-6 col-md-3 ">
+					  <img src="img/www.png" alt="...">
+					</a>
+				  
+  
+	</div><!-- /.row -->
+			
+</div><!-- /.container -->
 	
 	
 	
@@ -134,7 +166,8 @@ $email_list = array();
 		?>
 		</ol>
 	
-	
+
+
 	
 	
 	
