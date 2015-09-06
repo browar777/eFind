@@ -1,4 +1,9 @@
-.tumbnail-height-limit
+.text-center
 {
-min-height:224.984px;
+	text-align:center;
+}
+
+.sex
+{
+	display:none;
 }

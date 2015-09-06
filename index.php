@@ -3,7 +3,7 @@ require("class.filetotext.php");
 require("doc_convert.php");
 require("function.php");
 
-
+print_r($_FILES);
 
 
 $email_list = array();
@@ -134,21 +134,49 @@ $email_list = array();
 			
 	<div class="row">
 				  
-					<a href="#" class="thumbnail col-xs-6 col-md-3">
-					  <img src="img/PDF-icon.png" alt="...">
+					<a href="#" class="thumbnail col-xs-6 col-md-3" >
+					  <img src="img/PDF-icon.png" alt="..." />
+					  
+						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+								<input type="file" accept=".pdf"  />
+								<button type="submit" class="btn btn-default">Submit</button>
+						</form>
+						
 					</a>
 					<a href="#" class="thumbnail col-xs-6 col-md-3">
 					  <img src="img/docx.jpg" alt="...">
+					  
+						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+								<input type="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+								<button type="submit" class="btn btn-default">Submit</button>
+						</form>
+					  
 					</a>
 					<a href="#" class="thumbnail col-xs-6 col-md-3">
 					  <img src="img/txt-file-1.png" alt="...">
+					  
+						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+								<input type="file" accept="text/plain" />
+								<button type="submit" class="btn btn-default">Submit</button>
+						</form>
+					  
 					</a>
 					<a href="#" class="thumbnail col-xs-6 col-md-3 ">
 					  <img src="img/www.png" alt="...">
+					  
+						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+								<input type="text" />
+								<button type="submit" class="btn btn-default">Submit</button>
+						</form>
+					  
 					</a>
 				  
   
 	</div><!-- /.row -->
+	
+	<div class="container text-center">
+		<button type="submit" class="btn btn-primary btn-lg btn-block">Szukaj</button>
+	</div>
 			
 </div><!-- /.container -->
 	
@@ -166,9 +194,6 @@ $email_list = array();
 		?>
 		</ol>
 	
-
-
-	
 	
 	
 
@@ -177,6 +202,7 @@ $email_list = array();
 	<script src="bootstrap/jquery/jquery-2.1.4.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/jquery/myjq.js"></script>
   </body>
 </html>
 
