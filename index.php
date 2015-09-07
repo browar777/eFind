@@ -2,7 +2,7 @@
 require("class.filetotext.php");
 require("doc_convert.php");
 require("function.php");
-
+echo '</br>';echo '</br>';echo '</br>';
 print_r($_FILES);
 
 
@@ -39,6 +39,7 @@ $email_list = array();
 						
 						$text = new Filetotext($file);
 						$text = $text->convertToText();
+						echo $text;
 						
 					}
 					else if($type == 'txt' || $type == 'TXT')
@@ -135,10 +136,10 @@ $email_list = array();
 	<div class="row">
 				  
 					<a href="#" class="thumbnail col-xs-6 col-md-3" >
-					  <img src="img/PDF-icon.png" alt="..." />
+					  <img src="img/PDF-icon.png" alt="..."  />
 					  
 						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
-								<input type="file" accept=".pdf"  />
+								<input type="file" accept=".pdf" name="file" />
 								<button type="submit" class="btn btn-default">Submit</button>
 						</form>
 						
@@ -147,17 +148,17 @@ $email_list = array();
 					  <img src="img/docx.jpg" alt="...">
 					  
 						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
-								<input type="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+								<input type="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="file" />
 								<button type="submit" class="btn btn-default">Submit</button>
 						</form>
 					  
 					</a>
-					<a href="#" class="thumbnail col-xs-6 col-md-3">
-					  <img src="img/txt-file-1.png" alt="...">
+					<a href="#" class="thumbnail col-xs-6 col-md-3" >
+					  <img src="img/txt-file-1.png" alt="..." >
 					  
 						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
-								<input type="file" accept="text/plain" />
-								<button type="submit" class="btn btn-default">Submit</button>
+								<input type="file" accept="text/plain" name="file" />
+								<button type="submit" class="btn btn-default" >Submit</button>
 						</form>
 					  
 					</a>
@@ -165,7 +166,7 @@ $email_list = array();
 					  <img src="img/www.png" alt="...">
 					  
 						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
-								<input type="text" />
+								<input type="text"  name="www"/>
 								<button type="submit" class="btn btn-default">Submit</button>
 						</form>
 					  
@@ -174,13 +175,13 @@ $email_list = array();
   
 	</div><!-- /.row -->
 	
-	<div class="container text-center">
-		<button type="submit" class="btn btn-primary btn-lg btn-block">Szukaj</button>
-	</div>
+	
 			
 </div><!-- /.container -->
 	
-	
+	<div class="container">
+		<button type="submit" id="submit" class="btn btn-primary btn-lg btn-block" disabled="disabled">Szukaj</button>
+	</div>
 	
 	
 	<ol>
@@ -190,6 +191,10 @@ $email_list = array();
 		{
 			echo '<li>'.$email.'</li>'; 
 		}
+		
+		
+		
+		
 	
 		?>
 		</ol>
