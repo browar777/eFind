@@ -1,7 +1,7 @@
 ﻿<?PHP
-require("class.filetotext.php");
-require("doc_convert.php");
-require("function.php");
+include 'class-function/pdf/vendor/autoload.php';
+require('class-function/doc_convert.php');
+require('class-function/function.php');
 echo '</br>';echo '</br>';echo '</br>';
 print_r($_FILES);
 
@@ -27,19 +27,19 @@ $email_list = array();
 			{
 				
 		
-					$extent = $_FILES['file']['name'];
+					$extent = $_FILES['file']['name'];   //nazwa lpiku potzreba by znaleść rozszerzenie
 			
 					$type = explode('.',$extent);
 					$type = end($type);
 					
-					$file = $_FILES['file']['tmp_name'];
+					$file = $_FILES['file']['tmp_name'];  ///tymczasowa ścieżka do pliku
 						
 					if($type == 'pdf' || $type == 'PDF')
 					{
 						
-						$text = new Filetotext($file);
-						$text = $text->convertToText();
-						echo $text;
+						$parser = new \Smalot\PdfParser\Parser();
+						$pdf    = $parser->parseFile($file);
+						$text = $pdf->getText();
 						
 					}
 					else if($type == 'txt' || $type == 'TXT')
@@ -193,7 +193,7 @@ $email_list = array();
 		}
 		
 		
-		
+	
 		
 	
 		?>
