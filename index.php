@@ -1,78 +1,4 @@
-﻿<?PHP
-include 'class-function/pdf/vendor/autoload.php';
-require('class-function/doc_convert.php');
-require('class-function/function.php');
-echo '</br>';echo '</br>';echo '</br>';
-print_r($_FILES);
-
-
-$email_list = array();
-			
-			if(isset($_POST['www']))
-			{
-				$text = file_get_contents($_POST['www']);
-			}
-			
-			
-
-///////////////////////////Start odliczania Czasu //////////////////
-			$time_start = microtime_float();		
-///////////////////////////Start odliczania Czasu //////////////////		
-
-
-		
-			
-			
-			if(!empty($_FILES['file']['name']))
-			{
-				
-		
-					$extent = $_FILES['file']['name'];   //nazwa lpiku potzreba by znaleść rozszerzenie
-			
-					$type = explode('.',$extent);
-					$type = end($type);
-					
-					$file = $_FILES['file']['tmp_name'];  ///tymczasowa ścieżka do pliku
-						
-					if($type == 'pdf' || $type == 'PDF')
-					{
-						
-						$parser = new \Smalot\PdfParser\Parser();
-						$pdf    = $parser->parseFile($file);
-						$text = $pdf->getText();
-						
-					}
-					else if($type == 'txt' || $type == 'TXT')
-					{
-						$text = file_get_contents($file);
-						$text = translate($text);
-									
-						
-					}
-					else if($type == 'docx' || $type == 'DOCX')
-					{
-						$docObj = new DocxConversion($extent,$file);
-						$text = $docObj->convertToText();
-					}
-			}
-			
-
-			
-			if(isset($text))
-			{
-				$email_list = validate($text);
-			}
-			
-			
-			
-///////////////////////////KOniec odliczania Czasu //////////////////			
-		$time_end = microtime_float();
-		$time = $time_end - $time_start;
-	//	echo "scrypt zają  $time seconds\n</br>";
-///////////////////////////Koniec odliczania Czasu //////////////////
-	
-
-?>
+﻿
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -138,7 +64,7 @@ $email_list = array();
 					<a href="#" class="thumbnail col-xs-6 col-md-3" >
 					  <img src="img/PDF-icon.png" alt="..."  />
 					  
-						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+						<form action="validation.php" method="POST" class="form-horizontal" enctype="multipart/form-data">
 								<input type="file" accept=".pdf" name="file" />
 								<button type="submit" class="btn btn-default">Submit</button>
 						</form>
@@ -147,7 +73,7 @@ $email_list = array();
 					<a href="#" class="thumbnail col-xs-6 col-md-3">
 					  <img src="img/docx.jpg" alt="...">
 					  
-						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+						<form action="validation.php" method="POST" class="form-horizontal" enctype="multipart/form-data">
 								<input type="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="file" />
 								<button type="submit" class="btn btn-default">Submit</button>
 						</form>
@@ -156,16 +82,16 @@ $email_list = array();
 					<a href="#" class="thumbnail col-xs-6 col-md-3" >
 					  <img src="img/txt-file-1.png" alt="..." >
 					  
-						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+						<form action="validation.php" method="POST" class="form-horizontal" enctype="multipart/form-data">
 								<input type="file" accept="text/plain" name="file" />
 								<button type="submit" class="btn btn-default" >Submit</button>
 						</form>
 					  
 					</a>
-					<a href="#" class="thumbnail col-xs-6 col-md-3 ">
-					  <img src="img/www.png" alt="...">
+					<a href="#" class="thumbnail col-xs-6 col-md-3 " >
+					  <img src="img/www.png" alt="..." data-toggle="modal" data-target=".bs-example-modal-sm">
 					  
-						<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+						<form action="validation.php" method="POST" class="form-horizontal" enctype="multipart/form-data">
 								<input type="text"  name="www"/>
 								<button type="submit" class="btn btn-default">Submit</button>
 						</form>
@@ -176,6 +102,18 @@ $email_list = array();
 	</div><!-- /.row -->
 	
 	
+			<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+						<div class="modal-dialog modal-md ">
+								<div class="modal-content">
+									<form action="validation.php" method="POST" class="form-inline" enctype="multipart/form-data">
+										<input type="text"  name="www"/>
+										<button type="submit" class="btn btn-default">Submit</button>
+									</form>
+								</div>
+						  </div>
+				</div><!-- /.Modal -->
+	
+	
 			
 </div><!-- /.container -->
 	
@@ -184,20 +122,7 @@ $email_list = array();
 	</div>
 	
 	
-	<ol>
-		<?php
-		
-		foreach($email_list as $email)
-		{
-			echo '<li>'.$email.'</li>'; 
-		}
-		
-		
 	
-		
-	
-		?>
-		</ol>
 	
 	
 	
