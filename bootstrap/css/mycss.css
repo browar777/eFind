@@ -8,7 +8,7 @@
   text-align: center;
 }
 
-@media screen and (min-width: 768px) { 
+@media screen and (min-width: 340px) { 
   .modal:before {
     display: inline-block;
     vertical-align: middle;
@@ -19,6 +19,5 @@
 
 .modal-dialog {
   display: inline-block;
-  text-align: left;
   vertical-align: middle;
 }

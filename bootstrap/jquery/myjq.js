@@ -16,10 +16,20 @@ $(function()
 			 
 		 });
 		 
+	
+		
+	$('textarea').on('input', function() {
+				 var x = $(this).closest('.container').find('button');
+				x.removeAttr('disabled');
+		});
+		
+		 
 		 $(".container").on('click','#submit',function()
 		{		
 			$('.send').find( "button" ).click();
 		});
+		
+		$('[data-toggle="tooltip"]').tooltip();
 			
 			
 			

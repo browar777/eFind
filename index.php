@@ -1,4 +1,6 @@
-﻿
+﻿<?PHP
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -104,10 +106,14 @@
 	
 			<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 						<div class="modal-dialog modal-md ">
-								<div class="modal-content">
-									<form action="validation.php" method="POST" class="form-inline" enctype="multipart/form-data">
-										<input type="text"  name="www"/>
-										<button type="submit" class="btn btn-default">Submit</button>
+								<div class="modal-content" style="padding:20px;">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title">Podaj adres strony</h4>
+									</div>
+									<form action="validation.php" method="POST">
+										<input type="text" value="http://" name="www" style="margin:10px;" size="35"/>
+										<button type="submit" class="btn btn-primary btn-lg btn-block">Szukaj</button>
 									</form>
 								</div>
 						  </div>
@@ -120,6 +126,57 @@
 	<div class="container">
 		<button type="submit" id="submit" class="btn btn-primary btn-lg btn-block" disabled="disabled">Szukaj</button>
 	</div>
+	
+	</br></br></br>
+	
+<div class="container">	
+	<div class="form-group">
+	<form action="validation.php" method="POST">
+		  <label for="comment">Jeżeli plik, który chcesz przeszukać nie odpowiada żadnemu z powyższych formatów,skopiuj jego zawartość i wklej poniżej:</label>
+		  <textarea class="form-control" rows="5" id="comment" name="comment" ></textarea>
+		  <button type="submit" class="btn btn-primary btn-block" disabled="disabled">Szukaj</button>
+	</form>
+	</div>
+</div>
+
+<?PHP
+
+	if(isset($_SESSION['email_list']))
+		$email_list = $_SESSION['email_list'];
+	{
+?>
+		</br></br></br></br>
+				<div class="container" id="find-email">	
+				<table class="table table-bordered table-hover">
+					<tr class="info">
+						<td style="width:30px;"><strong>#<string></td>
+						<td><strong>Znalezione adresy email<string></td>
+					</tr>
+					
+						<?PHP
+							$i = 1;
+							foreach($email_list as $id=>$email)
+							{
+								echo '<tr class="success">
+												<td><strong>'.$i++.'</strong></td>
+												<td><strong>'.$email.'</strong>
+												
+												<a href="#" style="margin-left:10px;" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edytuj">
+														<span class="glyphicon glyphicon-pencil"></span>
+												</a>
+												<a  href="edit.php?email_id='.$id.'" style="margin-left:5px;" role="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Usuń">
+														<span class="glyphicon glyphicon-trash"></span>
+												</a>
+												</td>
+										</tr>'; 
+							}
+						?>
+					
+					</table>
+				</div>
+<?PHP
+	}
+?>
 	
 	
 	

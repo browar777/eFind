@@ -2,7 +2,7 @@
 include 'class-function/pdf/vendor/autoload.php';
 require('class-function/doc_convert.php');
 require('class-function/function.php');
-
+session_start();
 
 
 $email_list = array();
@@ -10,6 +10,11 @@ $email_list = array();
 			if(isset($_POST['www']))
 			{
 				$text = file_get_contents($_POST['www']);
+			}
+			
+			if(isset($_POST['comment']))
+			{
+				$text = $_POST['comment'];
 			}
 			
 
@@ -58,16 +63,26 @@ $email_list = array();
 			if(isset($text))
 			{
 				$email_list = validate($text);
+				$email_list = array_unique($email_list);
+				
+					if(empty($_SESSION['email_list']))
+					{
+						$_SESSION['email_list'] = $email_list;	
+					}
+					else
+					{
+						$merge = array_merge($_SESSION['email_list'], $email_list);
+						$email_list = array_unique($merge);
+						$_SESSION['email_list'] = $email_list;	
+					}
 			}
 			
 print_r($_FILES);
 echo '</br>';
 print_r($_POST);
-?>
+print_r($_SESSION['email_list']);
 
 
-<ol>
-		<?php
 		
 		foreach($email_list as $email)
 		{
@@ -75,8 +90,8 @@ print_r($_POST);
 		}
 		
 		
+	header('Location: index.php#find-email');
+		
 	
 		
 	
-		?>
-		</ol>
