@@ -62,6 +62,7 @@ session_start();
 <div class="container">
 			
 	<div class="row">
+			<div id="main">
 				  
 					<a href="#" class="thumbnail col-xs-6 col-md-3" >
 					  <img src="img/PDF-icon.png" alt="..."  />
@@ -99,7 +100,7 @@ session_start();
 						</form>
 					  
 					</a>
-				  
+			</div>  <!-- /.main -->
   
 	</div><!-- /.row -->
 	
@@ -124,7 +125,7 @@ session_start();
 </div><!-- /.container -->
 	
 	<div class="container">
-		<button type="submit" id="submit" class="btn btn-primary btn-lg btn-block" disabled="disabled">Szukaj</button>
+		<button type="submit" id="submit" class="btn btn-lg btn-block" disabled="disabled">Szukaj</button>
 	</div>
 	
 	</br></br></br>
@@ -134,7 +135,7 @@ session_start();
 	<form action="validation.php" method="POST">
 		  <label for="comment">Jeżeli plik, który chcesz przeszukać nie odpowiada żadnemu z powyższych formatów,skopiuj jego zawartość i wklej poniżej:</label>
 		  <textarea class="form-control" rows="5" id="comment" name="comment" ></textarea>
-		  <button type="submit" class="btn btn-primary btn-block" disabled="disabled">Szukaj</button>
+		  <button type="submit" class="btn  btn-block" disabled="disabled">Szukaj</button>
 	</form>
 	</div>
 </div>
@@ -142,8 +143,9 @@ session_start();
 <?PHP
 
 	if(isset($_SESSION['email_list']))
-		$email_list = $_SESSION['email_list'];
 	{
+		$email_list = $_SESSION['email_list'];
+	
 ?>
 		</br></br></br></br>
 				<div class="container" id="find-email">	
@@ -152,18 +154,32 @@ session_start();
 						<td style="width:30px;"><strong>#<string></td>
 						<td><strong>Znalezione adresy email<string></td>
 					</tr>
-					
+					<form action="edit.php" method="POST">
 						<?PHP
 							$i = 1;
 							foreach($email_list as $id=>$email)
 							{
-								echo '<tr class="success">
-												<td><strong>'.$i++.'</strong></td>
-												<td><strong>'.$email.'</strong>
+								
+							if(filter_var($email, FILTER_VALIDATE_EMAIL)) 
+							{								
+								echo '<tr class="success">';
+							}
+							else echo '<tr class="danger">';
+							
+											echo	'<td><strong>'.$i++.'</strong></td>
+												<td><strong class="email-text">'.$email.'</strong>
 												
-												<a href="#" style="margin-left:10px;" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edytuj">
+										
+												<input  class="hide-input" type="text" name="'.$id.'"  value="'.$email.'" />
+												
+												<button type="submit" class="btn btn-success hide-input"  data-toggle="tooltip" data-placement="top" title="Zapisz" name="action" value="'.$id.'" >
+														<span class="glyphicon glyphicon-ok"></span>
+												</button>
+										
+												
+												<span  style="margin-left:10px;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edytuj">
 														<span class="glyphicon glyphicon-pencil"></span>
-												</a>
+												</span>
 												<a  href="edit.php?email_id='.$id.'" style="margin-left:5px;" role="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Usuń">
 														<span class="glyphicon glyphicon-trash"></span>
 												</a>
@@ -171,16 +187,48 @@ session_start();
 										</tr>'; 
 							}
 						?>
-					
+					</form>
 					</table>
-				</div>
+					
+				
+					
+					<div class="row">
+							<button href="#" type="button" class="btn btn-primary btn-lg col-xs-6"  data-toggle="modal" data-target="#create-mail">Stwórz maila</button>
+							<a href="reset.php" type="button" class="btn btn-default btn-lg col-xs-6">Reset</a>
+					</div>
+					
+				</div><!-- /.container -->
+				
+				
+				<div id="create-mail" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+						<div class="modal-dialog modal-md ">
+								<div class="modal-content" style="padding:20px;">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title">Stwórz mail korzystając z konta google(zalecane)</h4>
+									</div>
+									
+								
+									<a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=<?PHP echo implode(",", $email_list); ?>" class="thumbnail" >
+										  <img src="img/gmail.png" alt="..." >
+									</a>
+									
+								</div>
+						  </div>
+				</div><!-- /.Modal -->
+				
+				
+				
+				
 <?PHP
 	}
 ?>
 	
 	
 	
-	
+<footer>			
+					<p style="text-align:center;padding:24px 0;margin:0;color:#9d9d9d;">eFind© 2015 </p>			
+</footer>
 	
 	
 

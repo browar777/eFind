@@ -2,15 +2,25 @@
 
 session_start();
 
-$id = $_GET['email_id'];
+if(isset($_GET['email_id']))
+{
+	$id = $_GET['email_id'];
+	unset($_SESSION['email_list'][$id]);
+	header('Location: index.php#find-email');
+}
 
-print_r($_SESSION['email_list']);
+if(isset($_POST['action']))
+{
 
-echo '</br> po unset </br>';
+		unset($_POST['action']);
+		$_SESSION['email_list'] = $_POST;
+		header('Location: index.php#find-email');
+}
 
-unset($_SESSION['email_list'][$id]);
-
-print_r($_SESSION['email_list']);
 
 
-header('Location: index.php#find-email');
+
+
+
+
+
