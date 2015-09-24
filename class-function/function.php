@@ -7,7 +7,7 @@ function multiexplode ($text)    //Funkcja tworzy tablice z textu
 								
 				$text = preg_replace('/\s+/', ',', $text);  //zastêpuje wszystkie odstêpy przecinkami
 				
-				$delimiters = array('|',':','[',']','(',')','-','+','<','>','?','!');
+				$delimiters = array('|',':','[',']','(',')','-','+','<','>','?','!','"','\'','~');
 				$ready = str_replace($delimiters, ',', $text);  //zastêpuje powyrzsze znaki przecij
 				$launch = explode(',', $ready);
 

@@ -65,6 +65,13 @@ $email_list = array();
 				$email_list = validate($text);
 				$email_list = array_unique($email_list);
 				
+				if(empty($email_list))
+				{
+					$_SESSION['empty-list-error'] = true;
+					header('Location: index.php#find-email');
+					die;
+				}
+				
 					if(empty($_SESSION['email_list']))
 					{
 						$_SESSION['email_list'] = $email_list;	
@@ -75,20 +82,12 @@ $email_list = array();
 						$email_list = array_unique($merge);
 						$_SESSION['email_list'] = $email_list;	
 					}
+					
+					
 			}
 			
-print_r($_FILES);
-echo '</br>';
-print_r($_POST);
-print_r($_SESSION['email_list']);
 
-
-		
-		foreach($email_list as $email)
-		{
-			echo '<li>'.$email.'</li>'; 
-		}
-		
+	
 		
 	header('Location: index.php#find-email');
 		

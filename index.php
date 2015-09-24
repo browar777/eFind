@@ -40,8 +40,7 @@ session_start();
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav ">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
+        <li><a href="#">Pomoc</a></li>
         
       </ul>
       
@@ -92,7 +91,7 @@ session_start();
 					  
 					</a>
 					<a href="#" class="thumbnail col-xs-6 col-md-3 " >
-					  <img src="img/www.png" alt="..." data-toggle="modal" data-target=".bs-example-modal-sm">
+					  <img src="img/www.png" alt="..." data-toggle="modal" data-target="#web-modal">
 					  
 						<form action="validation.php" method="POST" class="form-horizontal" enctype="multipart/form-data">
 								<input type="text"  name="www"/>
@@ -105,7 +104,7 @@ session_start();
 	</div><!-- /.row -->
 	
 	
-			<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div id="web-modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 						<div class="modal-dialog modal-md ">
 								<div class="modal-content" style="padding:20px;">
 									<div class="modal-header">
@@ -142,12 +141,21 @@ session_start();
 
 <?PHP
 
-	if(isset($_SESSION['email_list']))
+		if(isset($_SESSION['empty-list-error']))
+		{
+			echo '<div class="container"><div class="alert alert-danger" role="alert"><strong>Nie znaleziono żadnych adresów e-mail, możliwe że format pliku wskazany do przeszukania nie jest wspierany przez eFind, proszę skopiować jego zawartość i skorzystać z pola po wyżej.</strong></div></div>';
+			unset($_SESSION['empty-list-error']);
+		}
+
+
+	if(isset($_SESSION['email_list']) || !empty($_SESSION['email_list']))
 	{
-		$email_list = $_SESSION['email_list'];
+			
+		
+			$email_list = $_SESSION['email_list'];
 	
 ?>
-		</br></br></br></br>
+		</br></br>
 				<div class="container" id="find-email">	
 				<table class="table table-bordered table-hover">
 					<tr class="info">
@@ -160,32 +168,32 @@ session_start();
 							foreach($email_list as $id=>$email)
 							{
 								
-							if(filter_var($email, FILTER_VALIDATE_EMAIL)) 
-							{								
-								echo '<tr class="success">';
-							}
-							else echo '<tr class="danger">';
-							
-											echo	'<td><strong>'.$i++.'</strong></td>
-												<td><strong class="email-text">'.$email.'</strong>
-												
-										
-												<input  class="hide-input" type="text" name="'.$id.'"  value="'.$email.'" />
-												
-												<button type="submit" class="btn btn-success hide-input"  data-toggle="tooltip" data-placement="top" title="Zapisz" name="action" value="'.$id.'" >
-														<span class="glyphicon glyphicon-ok"></span>
-												</button>
-										
-												
-												<span  style="margin-left:10px;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edytuj">
-														<span class="glyphicon glyphicon-pencil"></span>
-												</span>
-												<a  href="edit.php?email_id='.$id.'" style="margin-left:5px;" role="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Usuń">
-														<span class="glyphicon glyphicon-trash"></span>
-												</a>
-												</td>
-										</tr>'; 
-							}
+								if(filter_var($email, FILTER_VALIDATE_EMAIL)) 
+								{								
+									echo '<tr class="success">';
+								}
+									else echo '<tr class="danger">';
+								
+												echo	'<td><strong>'.$i++.'</strong></td>
+													<td><strong class="email-text">'.$email.'</strong>
+													
+											
+													<input  class="hide-input" type="text" name="'.$id.'"  value="'.$email.'" />
+													
+													<button type="submit" class="btn btn-success hide-input"  data-toggle="tooltip" data-placement="top" title="Zapisz" name="action" value="'.$id.'" >
+															<span class="glyphicon glyphicon-ok"></span>
+													</button>
+											
+													
+													<span  style="margin-left:10px;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edytuj">
+															<span class="glyphicon glyphicon-pencil"></span>
+													</span>
+													<a  href="edit.php?email_id='.$id.'" style="margin-left:5px;" role="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Usuń">
+															<span class="glyphicon glyphicon-trash"></span>
+													</a>
+													</td>
+											</tr>'; 
+							}//foreach($email_list as $id=>$email)
 						?>
 					</form>
 					</table>
@@ -205,13 +213,40 @@ session_start();
 								<div class="modal-content" style="padding:20px;">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title">Stwórz mail korzystając z konta google(zalecane)</h4>
+										<h3 class="modal-title">Stwórz mail korzystając z konta google(zalecane)</h3>
 									</div>
 									
 								
 									<a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=<?PHP echo implode(",", $email_list); ?>" class="thumbnail" >
 										  <img src="img/gmail.png" alt="..." >
 									</a>
+									
+									<h3>Lub z korzystaj z okna poniżej, używając dowolnego adresu e-mail lecz istnieje prawdopodobieństwo, że twoja wiadomość wyląduję w spamie.</h3>
+						<form action="http://mail1.esy.es/mail.php" method="GET">			
+									<div class="row">
+										<div class=" col-xs-6">
+										<h3>Adresat:</h3>
+											<div class="input-group input-group-lg">										
+													<input type="text" class="form-control" name="email-list" value="<?PHP echo implode(",", $email_list); ?>" aria-describedby="sizing-addon1" required>
+											</div>
+										</div>
+										<div class=" col-xs-6">
+										<h3>Nadawca:</h3>
+											<div class="input-group input-group-lg">										
+													<input type="text" name ="adress" class="form-control" placeholder="E-mail Nadawcy" aria-describedby="sizing-addon1" required>
+											</div>
+										</div>
+									</div><!-- /.row -->
+									
+									<div class="input-group" style="margin-top:10px;">
+									<h4 class="pull-left">Nagłówek:</h4>
+									  <input type="text" class="form-control" name="subject" aria-describedby="basic-addon1" required>
+									</div>
+									
+										<textarea style="margin-top:10px;" class="form-control" rows="5" id="comment" name="message" required></textarea>
+										<button type="submit" class="btn  btn-info btn-block" >Wyślij</button>
+						</form>			
+									
 									
 								</div>
 						  </div>
@@ -221,7 +256,8 @@ session_start();
 				
 				
 <?PHP
-	}
+		
+	}//if(isset($_SESSION['email_list']))
 ?>
 	
 	
