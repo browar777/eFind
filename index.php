@@ -34,13 +34,13 @@ session_start();
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">eFind</a>
+      <a class="navbar-brand" href="index.php">eFind</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav ">
-        <li><a href="#">Pomoc</a></li>
+        <li><a href="pomoc.php">Pomoc</a></li>
         
       </ul>
       
@@ -148,9 +148,8 @@ session_start();
 		}
 
 
-	if(isset($_SESSION['email_list']) || !empty($_SESSION['email_list']))
+	if(isset($_SESSION['email_list']) && !empty($_SESSION['email_list']))
 	{
-			
 		
 			$email_list = $_SESSION['email_list'];
 	
